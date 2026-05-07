@@ -1,8 +1,10 @@
 package co.com.corpacero.simulador.ui.screens.home
 
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -14,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -25,10 +26,13 @@ import co.com.corpacero.simulador.R
 import co.com.corpacero.simulador.ui.components.BrandGradient
 import co.com.corpacero.simulador.ui.components.DisclaimerBanner
 import co.com.corpacero.simulador.ui.navigation.Routes
-import co.com.corpacero.simulador.ui.theme.CorpBlue
+import co.com.corpacero.simulador.ui.theme.CorpBlueAccent
 import co.com.corpacero.simulador.ui.theme.CorpBlueDeep
-import co.com.corpacero.simulador.ui.theme.CorpGreyBg
-import co.com.corpacero.simulador.ui.theme.CorpTextMuted
+import co.com.corpacero.simulador.ui.theme.CorpSlate100
+import co.com.corpacero.simulador.ui.theme.CorpSlate200
+import co.com.corpacero.simulador.ui.theme.CorpSlate50
+import co.com.corpacero.simulador.ui.theme.CorpSlate500
+import co.com.corpacero.simulador.ui.theme.CorpSlate700
 
 private data class CalcEntry(
     val route: Routes,
@@ -60,7 +64,7 @@ private val calcs = listOf(
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(onSelect: (Routes) -> Unit) {
-    Scaffold(containerColor = CorpGreyBg) { padding ->
+    Scaffold(containerColor = CorpSlate50) { padding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()
@@ -82,38 +86,37 @@ private fun BrandHeader() {
         modifier = Modifier
             .fillMaxWidth()
             .background(BrandGradient())
-            .padding(horizontal = 20.dp, vertical = 22.dp),
+            .padding(horizontal = 24.dp, vertical = 28.dp),
     ) {
-        Column {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(
-                    modifier = Modifier
-                        .size(46.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(Color.White),
-                    contentAlignment = Alignment.Center,
-                ) {
-                    Image(
-                        painter = painterResource(R.drawable.logo_corpacero),
-                        contentDescription = "Corpacero",
-                        modifier = Modifier.padding(6.dp),
-                        contentScale = ContentScale.Fit,
-                    )
-                }
-                Spacer(Modifier.width(14.dp))
-                Column {
-                    Text(
-                        text = stringResource(R.string.app_name),
-                        color = Color.White,
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                    )
-                    Text(
-                        text = stringResource(R.string.app_subtitle),
-                        color = Color.White.copy(alpha = 0.85f),
-                        style = MaterialTheme.typography.bodySmall,
-                    )
-                }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Box(
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(RoundedCornerShape(12.dp))
+                    .background(Color.White),
+                contentAlignment = Alignment.Center,
+            ) {
+                Image(
+                    painter = painterResource(R.drawable.logo_corpacero),
+                    contentDescription = "Corpacero",
+                    modifier = Modifier.padding(8.dp),
+                    contentScale = ContentScale.Fit,
+                )
+            }
+            Spacer(Modifier.width(18.dp))
+            Column {
+                Text(
+                    text = stringResource(R.string.app_name),
+                    color = Color.White,
+                    style = MaterialTheme.typography.headlineMedium,
+                    fontWeight = FontWeight.SemiBold,
+                )
+                Spacer(Modifier.height(2.dp))
+                Text(
+                    text = stringResource(R.string.app_subtitle).uppercase(),
+                    color = Color.White.copy(alpha = 0.78f),
+                    style = MaterialTheme.typography.labelSmall,
+                )
             }
         }
     }
@@ -121,12 +124,11 @@ private fun BrandHeader() {
 
 @Composable
 private fun CalcGrid(modifier: Modifier = Modifier, onSelect: (Routes) -> Unit) {
-    // Agrupar por categoría manteniendo el orden de declaración
     val grouped = calcs.groupBy { it.category }
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
         modifier = modifier.fillMaxWidth(),
-        contentPadding = PaddingValues(horizontal = 12.dp, vertical = 12.dp),
+        contentPadding = PaddingValues(horizontal = 14.dp, vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
     ) {
@@ -143,43 +145,45 @@ private fun CalcGrid(modifier: Modifier = Modifier, onSelect: (Routes) -> Unit) 
 
 @Composable
 private fun CategoryHeader(text: String) {
-    Column(modifier = Modifier.padding(horizontal = 4.dp, vertical = 4.dp)) {
-        Text(
-            text = text.uppercase(),
-            style = MaterialTheme.typography.labelMedium,
-            color = CorpTextMuted,
-            fontWeight = FontWeight.SemiBold,
-        )
-        Spacer(Modifier.height(4.dp))
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(horizontal = 4.dp, vertical = 6.dp),
+    ) {
         Box(
             Modifier
-                .height(2.dp)
-                .width(36.dp)
-                .background(
-                    Brush.horizontalGradient(listOf(CorpBlue, Color(0xFF6978FF), Color(0xFF00B4FF)))
-                ),
+                .height(14.dp)
+                .width(3.dp)
+                .background(CorpBlueAccent, RoundedCornerShape(2.dp)),
+        )
+        Spacer(Modifier.width(10.dp))
+        Text(
+            text = text.uppercase(),
+            style = MaterialTheme.typography.labelLarge,
+            color = CorpSlate700,
+            fontWeight = FontWeight.SemiBold,
         )
     }
 }
 
 @Composable
 private fun CalcCard(entry: CalcEntry, onClick: () -> Unit) {
-    ElevatedCard(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(20.dp))
-            .clickable(onClick = onClick),
-        shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.elevatedCardColors(containerColor = MaterialTheme.colorScheme.surface),
-        elevation = CardDefaults.elevatedCardElevation(2.dp),
+            .clip(RoundedCornerShape(12.dp))
+            .clickable(onClick = onClick)
+            .border(BorderStroke(1.dp, CorpSlate200), RoundedCornerShape(12.dp)),
+        shape = RoundedCornerShape(12.dp),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
-        Column(modifier = Modifier.padding(12.dp)) {
+        Column(modifier = Modifier.padding(14.dp)) {
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(96.dp)
-                    .clip(RoundedCornerShape(14.dp))
-                    .background(MaterialTheme.colorScheme.primaryContainer),
+                    .clip(RoundedCornerShape(8.dp))
+                    .background(CorpSlate100),
                 contentAlignment = Alignment.Center,
             ) {
                 Image(
@@ -188,15 +192,21 @@ private fun CalcCard(entry: CalcEntry, onClick: () -> Unit) {
                     contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxSize()
-                        .padding(10.dp),
+                        .padding(12.dp),
                 )
             }
-            Spacer(Modifier.height(10.dp))
+            Spacer(Modifier.height(12.dp))
             Text(
                 text = stringResource(entry.titleRes),
                 style = MaterialTheme.typography.titleSmall,
                 color = CorpBlueDeep,
                 fontWeight = FontWeight.SemiBold,
+            )
+            Spacer(Modifier.height(2.dp))
+            Text(
+                text = "Calcular peso",
+                style = MaterialTheme.typography.labelSmall,
+                color = CorpSlate500,
             )
         }
     }

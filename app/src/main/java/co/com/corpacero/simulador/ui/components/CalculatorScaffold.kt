@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import co.com.corpacero.simulador.R
-import co.com.corpacero.simulador.ui.theme.CorpBlue
-import co.com.corpacero.simulador.ui.theme.CorpGreyBg
+import co.com.corpacero.simulador.ui.theme.CorpBlueDark
+import co.com.corpacero.simulador.ui.theme.CorpSlate50
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,10 +26,16 @@ fun CalculatorScaffold(
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Scaffold(
-        containerColor = CorpGreyBg,
+        containerColor = CorpSlate50,
         topBar = {
             TopAppBar(
-                title = { Text(title, fontWeight = FontWeight.SemiBold) },
+                title = {
+                    Text(
+                        title,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.SemiBold,
+                    )
+                },
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(
@@ -40,7 +46,7 @@ fun CalculatorScaffold(
                 },
                 actions = actions,
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = CorpBlue,
+                    containerColor = CorpBlueDark,
                     titleContentColor = Color.White,
                     navigationIconContentColor = Color.White,
                     actionIconContentColor = Color.White,
@@ -52,10 +58,10 @@ fun CalculatorScaffold(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
-                .background(CorpGreyBg)
+                .background(CorpSlate50)
                 .verticalScroll(rememberScrollState())
-                .padding(horizontal = 16.dp, vertical = 12.dp),
-            verticalArrangement = Arrangement.spacedBy(14.dp),
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
             content()
             Spacer(Modifier.height(24.dp))

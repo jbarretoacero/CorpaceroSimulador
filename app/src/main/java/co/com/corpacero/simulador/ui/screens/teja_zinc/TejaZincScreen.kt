@@ -52,6 +52,7 @@ fun TejaZincScreen(onBack: () -> Unit) {
             recubrimiento = inputs.recGalv,
             recubrimientos = recOptions,
             onRecubrimientoChange = { inputs = inputs.copy(recGalv = it) },
+            recubrimientoGm2 = rG,
             pesoKgMl = galvMl,
             pesoKgM2 = galvM2,
         )
@@ -63,6 +64,7 @@ fun TejaZincScreen(onBack: () -> Unit) {
             recubrimiento = inputs.recPint,
             recubrimientos = recOptions,
             onRecubrimientoChange = { inputs = inputs.copy(recPint = it) },
+            recubrimientoGm2 = rP,
             pesoKgMl = pintMl,
             pesoKgM2 = pintM2,
         )

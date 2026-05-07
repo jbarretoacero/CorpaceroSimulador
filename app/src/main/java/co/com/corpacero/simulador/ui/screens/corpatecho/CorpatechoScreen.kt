@@ -53,6 +53,7 @@ fun CorpatechoScreen(onBack: () -> Unit) {
             recubrimiento = inputs.recGalv,
             recubrimientos = recGalvOpts,
             onRecubrimientoChange = { inputs = inputs.copy(recGalv = it) },
+            recubrimientoGm2 = rG,
             pesoKgMl = galvMl,
             pesoKgM2 = galvM2,
         )
@@ -64,6 +65,7 @@ fun CorpatechoScreen(onBack: () -> Unit) {
             recubrimiento = inputs.recPint,
             recubrimientos = recPintOpts,
             onRecubrimientoChange = { inputs = inputs.copy(recPint = it) },
+            recubrimientoGm2 = rP,
             pesoKgMl = pintMl,
             pesoKgM2 = pintM2,
         )

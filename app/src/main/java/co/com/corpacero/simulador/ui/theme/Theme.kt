@@ -11,26 +11,26 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val LightColors = lightColorScheme(
-    primary            = CorpBlue,
-    onPrimary          = Color.White,
-    primaryContainer   = CorpBlueSoft,
-    onPrimaryContainer = CorpBlueDeep,
-    secondary          = CorpCyan,
-    onSecondary        = Color.White,
-    secondaryContainer = Color(0xFFCFEDFF),
+    primary              = CorpBlue,
+    onPrimary            = Color.White,
+    primaryContainer     = CorpBlueSoft,
+    onPrimaryContainer   = CorpBlueDeep,
+    secondary            = CorpCyan,
+    onSecondary          = Color.White,
+    secondaryContainer   = Color(0xFFD9ECF7),
     onSecondaryContainer = CorpBlueDeep,
-    tertiary           = CorpViolet,
-    onTertiary         = Color.White,
-    background         = CorpGreyBg,
-    onBackground       = CorpTextDark,
-    surface            = CorpGreyCard,
-    onSurface          = CorpTextDark,
-    surfaceVariant     = CorpBlueSoft,
-    onSurfaceVariant   = CorpBlueDeep,
-    outline            = CorpDivider,
-    outlineVariant     = CorpDivider,
-    error              = Color(0xFFB3261E),
-    onError            = Color.White,
+    tertiary             = CorpSlate700,
+    onTertiary           = Color.White,
+    background           = CorpSlate50,
+    onBackground         = CorpSlate900,
+    surface              = CorpSurface,
+    onSurface            = CorpSlate900,
+    surfaceVariant       = CorpSlate100,
+    onSurfaceVariant     = CorpSlate700,
+    outline              = CorpSlate200,
+    outlineVariant       = CorpSlate200,
+    error                = Color(0xFFB3261E),
+    onError              = Color.White,
 )
 
 @Composable
@@ -45,7 +45,7 @@ fun CorpaceroSimuladorTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = CorpBlue.toArgb()
+            window.statusBarColor = CorpBlueDark.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
         }
     }
