@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">Simulador Corpacero</string>
+    <string name="app_subtitle">Simulador de pesos para productos transformados</string>
+
+    <!-- Disclaimer -->
+    <string name="disclaimer">Este es un peso de referencia. No puede ser utilizado para ninguna decisión comercial.</string>
+
+    <!-- Home / categorías -->
+    <string name="home_title">Selecciona un calculador</string>
+    <string name="cat_perfiles">Perfiles estructurales</string>
+    <string name="cat_cubiertas">Cubiertas y láminas</string>
+    <string name="cat_otros">Otros productos</string>
+
+    <!-- Calculadores -->
+    <string name="calc_perlin_c">Perlín en C</string>
+    <string name="calc_perlin_cajon">Perlín cajón</string>
+    <string name="calc_tuberia">Tubería</string>
+    <string name="calc_lamina">Lámina galvanizada</string>
+    <string name="calc_cub_arq">Cubierta arquitectónica</string>
+    <string name="calc_corpatecho">Corpatecho</string>
+    <string name="calc_teja_zinc">Teja de zinc</string>
+    <string name="calc_corpalosa">Corpalosa</string>
+    <string name="calc_bobina">Rollo galvanizado</string>
+
+    <!-- Comunes -->
+    <string name="back">Volver</string>
+    <string name="reset">Restablecer</string>
+    <string name="results">Resultados</string>
+    <string name="parameters">Parámetros</string>
+    <string name="diagram">Diagrama</string>
+    <string name="invalid_input">Valor inválido</string>
+    <string name="kg_per_m">kg/m</string>
+    <string name="kg_per_und">kg/und</string>
+    <string name="kg_per_ml">kg/ml</string>
+    <string name="kg_per_m2">kg/m²</string>
+    <string name="kg">kg</string>
+    <string name="m">m</string>
+</resources>
