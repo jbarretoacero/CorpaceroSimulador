@@ -13,17 +13,6 @@ Corpacero).
 > En Android, abrir la APK descargada y permitir "Instalar de fuentes
 > desconocidas" para el navegador / gestor de archivos cuando lo solicite.
 
-> Nota: v1.0.4 fue firmada con un keystore nuevo. Si tienes v1.0.3
-> instalada, desinstálala antes de actualizar (Android rechaza
-> actualizaciones con firma distinta).
-
-### Novedades de v1.0.4
-
-- Nueva pantalla de splash con el logo completo de Corpacero sobre fondo blanco.
-- Icono de la app rediseñado: símbolo "C" centrado y a mayor escala.
-- Header del Home y tarjetas de calculadoras con gradiente suave para una
-  apariencia más uniforme (sin el borde visible entre el diagrama y el fondo).
-
 ## Stack
 
 - **Kotlin** + **Jetpack Compose** (Material 3)
@@ -60,9 +49,7 @@ app/src/main/java/co/com/corpacero/simulador/
     ├── theme/                         ← Color, Type, Theme
     ├── navigation/                    ← Routes + NavGraph
     ├── components/                    ← Inputs, dropdowns, cards, scaffold
-    └── screens/
-        ├── splash/                    ← Splash con logo completo
-        └── ...                        ← Una pantalla por calculadora
+    └── screens/                       ← Una pantalla por calculadora
 ```
 ---
 **Disclaimer**: los valores son de referencia. No deben usarse para
