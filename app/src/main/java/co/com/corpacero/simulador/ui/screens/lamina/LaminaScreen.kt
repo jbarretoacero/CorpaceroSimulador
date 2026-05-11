@@ -1,24 +1,40 @@
 package co.com.corpacero.simulador.ui.screens.lamina
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import co.com.corpacero.simulador.R
 import co.com.corpacero.simulador.domain.calculators.Calculators
 import co.com.corpacero.simulador.ui.components.*
 
+private const val STORAGE_KEY = "lamina"
+private const val DEFAULT_REC = "G90"
+
 private data class Inputs(
-    val ancho: String = "400",
-    val largo: String = "2000",
-    val espesor: String = "1.2",
-    val recubrimiento: String = "G90",
+    val ancho: String = "0",
+    val largo: String = "0",
+    val espesor: String = "0",
+    val recubrimiento: String = DEFAULT_REC,
 )
 
 @Composable
 fun LaminaScreen(onBack: () -> Unit) {
-    var inputs by remember { mutableStateOf(Inputs()) }
+    val context = LocalContext.current
+    var inputs by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY)
+        mutableStateOf(
+            if (saved != null) Inputs(
+                ancho = saved["ancho"] ?: "0",
+                largo = saved["largo"] ?: "0",
+                espesor = saved["espesor"] ?: "0",
+                recubrimiento = saved["recubrimiento"] ?: DEFAULT_REC,
+            ) else Inputs()
+        )
+    }
     val a = inputs.ancho.toPositiveDoubleOrNull()
     val l = inputs.largo.toPositiveDoubleOrNull()
     val e = inputs.espesor.toPositiveDoubleOrNull()
@@ -30,7 +46,20 @@ fun LaminaScreen(onBack: () -> Unit) {
     CalculatorScaffold(
         title = stringResource(R.string.calc_lamina),
         onBack = onBack,
-        actions = { ResetButton(onClick = { inputs = Inputs() }) },
+        actions = {
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY, mapOf(
+                    "ancho" to inputs.ancho, "largo" to inputs.largo,
+                    "espesor" to inputs.espesor, "recubrimiento" to inputs.recubrimiento,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                inputs = Inputs()
+                CalcStorage.clear(context, STORAGE_KEY)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
+            })
+        },
     ) {
         DiagramHero(R.drawable.diag_lamina, "Diagrama lámina")
 

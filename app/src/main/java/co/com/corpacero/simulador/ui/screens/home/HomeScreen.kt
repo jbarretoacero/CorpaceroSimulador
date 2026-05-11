@@ -30,6 +30,7 @@ import co.com.corpacero.simulador.ui.navigation.Routes
 import co.com.corpacero.simulador.ui.theme.CorpBlueAccent
 import co.com.corpacero.simulador.ui.theme.CorpBlueDeep
 import co.com.corpacero.simulador.ui.theme.CorpBlueSoft
+import co.com.corpacero.simulador.ui.theme.CorpSlate100
 import co.com.corpacero.simulador.ui.theme.CorpSlate200
 import co.com.corpacero.simulador.ui.theme.CorpSlate50
 import co.com.corpacero.simulador.ui.theme.CorpSlate500
@@ -179,7 +180,7 @@ private fun CalcCard(entry: CalcEntry, onClick: () -> Unit) {
             .clickable(onClick = onClick)
             .border(BorderStroke(1.dp, CorpSlate200), RoundedCornerShape(12.dp)),
         shape = RoundedCornerShape(12.dp),
-        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+        colors = CardDefaults.cardColors(containerColor = CorpSlate100),
         elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
     ) {
         Column(modifier = Modifier.padding(14.dp)) {
@@ -188,11 +189,8 @@ private fun CalcCard(entry: CalcEntry, onClick: () -> Unit) {
                     .fillMaxWidth()
                     .height(96.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(CorpBlueSoft, Color.White),
-                        )
-                    ),
+                    .border(BorderStroke(1.dp, CorpSlate200), RoundedCornerShape(8.dp))
+                    .background(Color.White),
                 contentAlignment = Alignment.Center,
             ) {
                 Image(

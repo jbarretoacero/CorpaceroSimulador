@@ -1,31 +1,50 @@
 package co.com.corpacero.simulador.ui.screens.teja_zinc
 
+import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import co.com.corpacero.simulador.R
 import co.com.corpacero.simulador.domain.calculators.Calculators
+import co.com.corpacero.simulador.ui.components.CalcStorage
 import co.com.corpacero.simulador.ui.components.CalculatorScaffold
+import co.com.corpacero.simulador.ui.components.ClearButton
 import co.com.corpacero.simulador.ui.components.CubiertaVarianteCard
 import co.com.corpacero.simulador.ui.components.DiagramHero
 import co.com.corpacero.simulador.ui.components.DisclaimerBanner
-import co.com.corpacero.simulador.ui.components.ResetButton
+import co.com.corpacero.simulador.ui.components.SaveButton
 import co.com.corpacero.simulador.ui.components.toPositiveDoubleOrNull
 
+private const val STORAGE_KEY = "teja_zinc"
+private const val DEFAULT_REC_GALV = "G90"
+private const val DEFAULT_REC_PINT = "G40"
+
 private data class Inputs(
-    val espGalv: String = "0.18",
-    val recGalv: String = "G90",
-    val espPint: String = "0.17",
-    val recPint: String = "G40",
+    val espGalv: String = "0",
+    val recGalv: String = DEFAULT_REC_GALV,
+    val espPint: String = "0",
+    val recPint: String = DEFAULT_REC_PINT,
 )
 
 @Composable
 fun TejaZincScreen(onBack: () -> Unit) {
-    var inputs by remember { mutableStateOf(Inputs()) }
+    val context = LocalContext.current
+    var inputs by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY)
+        mutableStateOf(
+            if (saved != null) Inputs(
+                espGalv = saved["espGalv"] ?: "0",
+                recGalv = saved["recGalv"] ?: DEFAULT_REC_GALV,
+                espPint = saved["espPint"] ?: "0",
+                recPint = saved["recPint"] ?: DEFAULT_REC_PINT,
+            ) else Inputs()
+        )
+    }
     val recOptions = Calculators.recubrimientosTeja.keys.toList()
 
     val eG = inputs.espGalv.toPositiveDoubleOrNull()
@@ -41,7 +60,20 @@ fun TejaZincScreen(onBack: () -> Unit) {
     CalculatorScaffold(
         title = stringResource(R.string.calc_teja_zinc),
         onBack = onBack,
-        actions = { ResetButton(onClick = { inputs = Inputs() }) },
+        actions = {
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY, mapOf(
+                    "espGalv" to inputs.espGalv, "recGalv" to inputs.recGalv,
+                    "espPint" to inputs.espPint, "recPint" to inputs.recPint,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                inputs = Inputs()
+                CalcStorage.clear(context, STORAGE_KEY)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
+            })
+        },
     ) {
         DiagramHero(R.drawable.diag_teja_zinc, stringResource(R.string.calc_teja_zinc), height = 160.dp)
 

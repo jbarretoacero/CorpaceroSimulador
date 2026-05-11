@@ -1,28 +1,44 @@
 package co.com.corpacero.simulador.ui.screens.perlin_c
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import co.com.corpacero.simulador.R
 import co.com.corpacero.simulador.domain.calculators.Calculators
 import co.com.corpacero.simulador.ui.components.*
 import co.com.corpacero.simulador.ui.theme.CorpBlueDeep
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
+
+private const val STORAGE_KEY = "perlin_c"
 
 private data class Inputs(
-    val a: String = "160",   // altura mm
-    val b: String = "60",    // base mm
-    val u: String = "19",    // pestaña mm
-    val e: String = "3",     // espesor mm
-    val l: String = "6",     // longitud m
+    val a: String = "0",
+    val b: String = "0",
+    val u: String = "0",
+    val e: String = "0",
+    val l: String = "0",
 )
 
 @Composable
 fun PerlinCScreen(onBack: () -> Unit) {
-    var inputs by remember { mutableStateOf(Inputs()) }
+    val context = LocalContext.current
+    var inputs by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY)
+        mutableStateOf(
+            if (saved != null) Inputs(
+                a = saved["a"] ?: "0",
+                b = saved["b"] ?: "0",
+                u = saved["u"] ?: "0",
+                e = saved["e"] ?: "0",
+                l = saved["l"] ?: "0",
+            ) else Inputs()
+        )
+    }
 
     val a = inputs.a.toPositiveDoubleOrNull()
     val b = inputs.b.toPositiveDoubleOrNull()
@@ -39,7 +55,20 @@ fun PerlinCScreen(onBack: () -> Unit) {
     CalculatorScaffold(
         title = stringResource(R.string.calc_perlin_c),
         onBack = onBack,
-        actions = { ResetButton(onClick = { inputs = Inputs() }) },
+        actions = {
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY, mapOf(
+                    "a" to inputs.a, "b" to inputs.b, "u" to inputs.u,
+                    "e" to inputs.e, "l" to inputs.l,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                inputs = Inputs()
+                CalcStorage.clear(context, STORAGE_KEY)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
+            })
+        },
     ) {
         DiagramHero(R.drawable.diag_perlin_c, "Diagrama Perlín C")
 

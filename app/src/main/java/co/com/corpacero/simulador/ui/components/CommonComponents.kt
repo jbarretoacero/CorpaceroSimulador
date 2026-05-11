@@ -10,7 +10,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Info
+import androidx.compose.material.icons.filled.DeleteOutline
 import androidx.compose.material.icons.filled.Refresh
+import androidx.compose.material.icons.filled.Save
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -236,7 +238,7 @@ fun DiagramHero(
             .fillMaxWidth()
             .height(height)
             .clip(RoundedCornerShape(14.dp))
-            .background(CorpSlate100)
+            .background(androidx.compose.ui.graphics.Color.White)
             .border(BorderStroke(1.dp, CorpSlate200), RoundedCornerShape(14.dp)),
         contentAlignment = Alignment.Center,
     ) {
@@ -278,13 +280,18 @@ fun DisclaimerBanner(text: String, modifier: Modifier = Modifier) {
     }
 }
 
-/* ----------------------------- Reset chip ----------------------------- */
+/* ----------------------------- Toolbar action chips ----------------------------- */
 @Composable
-fun ResetButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+private fun ToolbarChip(
+    label: String,
+    icon: androidx.compose.ui.graphics.vector.ImageVector,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     AssistChip(
         onClick = onClick,
-        label = { Text("Restablecer", fontWeight = FontWeight.Medium) },
-        leadingIcon = { Icon(Icons.Default.Refresh, null, modifier = Modifier.size(16.dp)) },
+        label = { Text(label, fontWeight = FontWeight.Medium) },
+        leadingIcon = { Icon(icon, null, modifier = Modifier.size(16.dp)) },
         modifier = modifier,
         colors = AssistChipDefaults.assistChipColors(
             containerColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.16f),
@@ -296,6 +303,21 @@ fun ResetButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
             borderColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.32f),
         ),
     )
+}
+
+@Composable
+fun ResetButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    ToolbarChip("Restablecer", Icons.Default.Refresh, onClick, modifier)
+}
+
+@Composable
+fun SaveButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    ToolbarChip("Guardar", Icons.Default.Save, onClick, modifier)
+}
+
+@Composable
+fun ClearButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
+    ToolbarChip("Limpiar", Icons.Default.DeleteOutline, onClick, modifier)
 }
 
 /* ----------------------------- Brand gradient header ----------------------------- */

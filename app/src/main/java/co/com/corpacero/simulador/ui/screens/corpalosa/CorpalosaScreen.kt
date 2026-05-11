@@ -1,10 +1,12 @@
 package co.com.corpacero.simulador.ui.screens.corpalosa
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import co.com.corpacero.simulador.R
@@ -12,14 +14,27 @@ import co.com.corpacero.simulador.domain.calculators.Calculators
 import co.com.corpacero.simulador.ui.components.*
 import co.com.corpacero.simulador.ui.theme.CorpTextMuted
 
+private const val STORAGE_KEY = "corpalosa"
+private const val DEFAULT_CALIBRE = 18
+private const val DEFAULT_REFERENCIA = "1.5\""
+
 private data class Inputs(
-    val calibre: Int = 18,
-    val referencia: String = "1.5\"",
+    val calibre: Int = DEFAULT_CALIBRE,
+    val referencia: String = DEFAULT_REFERENCIA,
 )
 
 @Composable
 fun CorpalosaScreen(onBack: () -> Unit) {
-    var inputs by remember { mutableStateOf(Inputs()) }
+    val context = LocalContext.current
+    var inputs by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY)
+        mutableStateOf(
+            if (saved != null) Inputs(
+                calibre = saved["calibre"]?.toIntOrNull() ?: DEFAULT_CALIBRE,
+                referencia = saved["referencia"] ?: DEFAULT_REFERENCIA,
+            ) else Inputs()
+        )
+    }
     val espesor = Calculators.calibresCorpalosa[inputs.calibre]
 
     val pesoM2 = espesor?.let { Calculators.corpalosaPesoKgM2(it, inputs.referencia) }
@@ -35,7 +50,20 @@ fun CorpalosaScreen(onBack: () -> Unit) {
     CalculatorScaffold(
         title = stringResource(R.string.calc_corpalosa),
         onBack = onBack,
-        actions = { ResetButton(onClick = { inputs = Inputs() }) },
+        actions = {
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY, mapOf(
+                    "calibre" to inputs.calibre.toString(),
+                    "referencia" to inputs.referencia,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                inputs = Inputs()
+                CalcStorage.clear(context, STORAGE_KEY)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
+            })
+        },
     ) {
         DiagramHero(diag, "Diagrama corpalosa ${inputs.referencia}", height = 140.dp)
 

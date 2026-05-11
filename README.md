@@ -6,14 +6,14 @@ Corpacero).
 
 ## Descarga
 
-Última versión publicada: **v1.0.4** (versionCode 5) — APK firmada release.
+Última versión publicada: **v1.0.5** (versionCode 6) APK firmada release.
 
-[Descargar Simulador Corpacero v1.0.4 (APK)](https://github.com/jbarretoacero/CorpaceroSimulador/releases/download/v1.0.4/CorpaceroSimulador-v1.0.4.apk)
+[Descargar Simulador Corpacero v1.0.5 (APK)](https://github.com/jbarretoacero/CorpaceroSimulador/releases/download/v1.0.5/CorpaceroSimulador-v1.0.5.apk)
 
 > En Android, abrir la APK descargada y permitir "Instalar de fuentes
 > desconocidas" para el navegador / gestor de archivos cuando lo solicite.
 
-## Stack
+## Herramientas
 
 - **Kotlin** + **Jetpack Compose** (Material 3)
 - **AGP 8.5**, **Gradle 8.7**, **JDK 17+**

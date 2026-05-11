@@ -1,5 +1,6 @@
 package co.com.corpacero.simulador.ui.screens.bobina
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
@@ -7,6 +8,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -15,32 +17,69 @@ import co.com.corpacero.simulador.domain.calculators.Calculators
 import co.com.corpacero.simulador.ui.components.*
 import co.com.corpacero.simulador.ui.theme.CorpBlue
 
+private const val STORAGE_KEY_WEIGHT = "bobina_weight"
+private const val STORAGE_KEY_LENGTH = "bobina_length"
+
 private data class WeightInputs(
-    val di: String = "450",
-    val de: String = "1600",
-    val w:  String = "1530",
-    val e:  String = "4",
+    val di: String = "0",
+    val de: String = "0",
+    val w:  String = "0",
+    val e:  String = "0",
 )
 
 private data class LengthInputs(
-    val w:  String = "1220",
-    val e:  String = "3",
-    val we: String = "10000",
+    val w:  String = "0",
+    val e:  String = "0",
+    val we: String = "0",
 )
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun BobinaScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
     var tab by remember { mutableIntStateOf(0) }
-    var weight by remember { mutableStateOf(WeightInputs()) }
-    var length by remember { mutableStateOf(LengthInputs()) }
+    var weight by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY_WEIGHT)
+        mutableStateOf(
+            if (saved != null) WeightInputs(
+                di = saved["di"] ?: "0",
+                de = saved["de"] ?: "0",
+                w  = saved["w"]  ?: "0",
+                e  = saved["e"]  ?: "0",
+            ) else WeightInputs()
+        )
+    }
+    var length by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY_LENGTH)
+        mutableStateOf(
+            if (saved != null) LengthInputs(
+                w  = saved["w"]  ?: "0",
+                e  = saved["e"]  ?: "0",
+                we = saved["we"] ?: "0",
+            ) else LengthInputs()
+        )
+    }
 
     CalculatorScaffold(
         title = stringResource(R.string.calc_bobina),
         onBack = onBack,
         actions = {
-            ResetButton(onClick = {
-                if (tab == 0) weight = WeightInputs() else length = LengthInputs()
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY_WEIGHT, mapOf(
+                    "di" to weight.di, "de" to weight.de,
+                    "w" to weight.w,   "e" to weight.e,
+                ))
+                CalcStorage.save(context, STORAGE_KEY_LENGTH, mapOf(
+                    "w" to length.w, "e" to length.e, "we" to length.we,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                weight = WeightInputs()
+                length = LengthInputs()
+                CalcStorage.clear(context, STORAGE_KEY_WEIGHT)
+                CalcStorage.clear(context, STORAGE_KEY_LENGTH)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
             })
         },
     ) {

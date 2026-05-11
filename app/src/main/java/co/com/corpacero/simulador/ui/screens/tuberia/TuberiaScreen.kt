@@ -1,5 +1,6 @@
 package co.com.corpacero.simulador.ui.screens.tuberia
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.PrimaryTabRow
@@ -7,6 +8,7 @@ import androidx.compose.material3.Tab
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -15,32 +17,68 @@ import co.com.corpacero.simulador.domain.calculators.Calculators
 import co.com.corpacero.simulador.ui.components.*
 import co.com.corpacero.simulador.ui.theme.CorpBlue
 
+private const val STORAGE_KEY_RECT = "tuberia_rect"
+private const val STORAGE_KEY_CIRC = "tuberia_circ"
+
 private data class RectInputs(
-    val b: String = "200",
-    val h: String = "200",
-    val e: String = "5",
-    val l: String = "12",
+    val b: String = "0",
+    val h: String = "0",
+    val e: String = "0",
+    val l: String = "0",
 )
 
 private data class CircInputs(
-    val dext: String = "88.9",
-    val e: String = "3",
-    val l: String = "1",
+    val dext: String = "0",
+    val e: String = "0",
+    val l: String = "0",
 )
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
 @Composable
 fun TuberiaScreen(onBack: () -> Unit) {
+    val context = LocalContext.current
     var tab by remember { mutableIntStateOf(0) }
-    var rect by remember { mutableStateOf(RectInputs()) }
-    var circ by remember { mutableStateOf(CircInputs()) }
+    var rect by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY_RECT)
+        mutableStateOf(
+            if (saved != null) RectInputs(
+                b = saved["b"] ?: "0",
+                h = saved["h"] ?: "0",
+                e = saved["e"] ?: "0",
+                l = saved["l"] ?: "0",
+            ) else RectInputs()
+        )
+    }
+    var circ by remember {
+        val saved = CalcStorage.load(context, STORAGE_KEY_CIRC)
+        mutableStateOf(
+            if (saved != null) CircInputs(
+                dext = saved["dext"] ?: "0",
+                e = saved["e"] ?: "0",
+                l = saved["l"] ?: "0",
+            ) else CircInputs()
+        )
+    }
 
     CalculatorScaffold(
         title = stringResource(R.string.calc_tuberia),
         onBack = onBack,
         actions = {
-            ResetButton(onClick = {
-                if (tab == 0) rect = RectInputs() else circ = CircInputs()
+            SaveButton(onClick = {
+                CalcStorage.save(context, STORAGE_KEY_RECT, mapOf(
+                    "b" to rect.b, "h" to rect.h, "e" to rect.e, "l" to rect.l,
+                ))
+                CalcStorage.save(context, STORAGE_KEY_CIRC, mapOf(
+                    "dext" to circ.dext, "e" to circ.e, "l" to circ.l,
+                ))
+                Toast.makeText(context, R.string.saved_toast, Toast.LENGTH_SHORT).show()
+            })
+            ClearButton(onClick = {
+                rect = RectInputs()
+                circ = CircInputs()
+                CalcStorage.clear(context, STORAGE_KEY_RECT)
+                CalcStorage.clear(context, STORAGE_KEY_CIRC)
+                Toast.makeText(context, R.string.cleared_toast, Toast.LENGTH_SHORT).show()
             })
         },
     ) {

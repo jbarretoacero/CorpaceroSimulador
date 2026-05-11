@@ -25,6 +25,10 @@
     <!-- Comunes -->
     <string name="back">Volver</string>
     <string name="reset">Restablecer</string>
+    <string name="save">Guardar</string>
+    <string name="clear">Limpiar</string>
+    <string name="saved_toast">Valores guardados</string>
+    <string name="cleared_toast">Valores borrados</string>
     <string name="results">Resultados</string>
     <string name="parameters">Parámetros</string>
     <string name="diagram">Diagrama</string>
