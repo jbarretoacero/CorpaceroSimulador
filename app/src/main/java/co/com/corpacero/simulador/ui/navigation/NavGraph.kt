@@ -17,6 +17,7 @@ import co.com.corpacero.simulador.ui.screens.home.HomeScreen
 import co.com.corpacero.simulador.ui.screens.lamina.LaminaScreen
 import co.com.corpacero.simulador.ui.screens.perlin_c.PerlinCScreen
 import co.com.corpacero.simulador.ui.screens.perlin_cajon.PerlinCajonScreen
+import co.com.corpacero.simulador.ui.screens.splash.SplashScreen
 import co.com.corpacero.simulador.ui.screens.teja_zinc.TejaZincScreen
 import co.com.corpacero.simulador.ui.screens.tuberia.TuberiaScreen
 
@@ -26,12 +27,19 @@ fun SimuladorNavGraph() {
 
     NavHost(
         navController = nav,
-        startDestination = Routes.Home.path,
+        startDestination = Routes.Splash.path,
         enterTransition  = { slideInHorizontally(tween(280)) { it / 4 } + fadeIn(tween(280)) },
         exitTransition   = { fadeOut(tween(180)) },
         popEnterTransition = { fadeIn(tween(180)) },
         popExitTransition  = { slideOutHorizontally(tween(280)) { it / 4 } + fadeOut(tween(280)) },
     ) {
+        composable(Routes.Splash.path)      {
+            SplashScreen(onDone = {
+                nav.navigate(Routes.Home.path) {
+                    popUpTo(Routes.Splash.path) { inclusive = true }
+                }
+            })
+        }
         composable(Routes.Home.path)        { HomeScreen(onSelect = { nav.navigate(it.path) }) }
         composable(Routes.PerlinC.path)     { PerlinCScreen(onBack = { nav.popBackStack() }) }
         composable(Routes.PerlinCajon.path) { PerlinCajonScreen(onBack = { nav.popBackStack() }) }

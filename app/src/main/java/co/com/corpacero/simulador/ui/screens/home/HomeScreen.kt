@@ -16,6 +16,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -28,7 +29,7 @@ import co.com.corpacero.simulador.ui.components.DisclaimerBanner
 import co.com.corpacero.simulador.ui.navigation.Routes
 import co.com.corpacero.simulador.ui.theme.CorpBlueAccent
 import co.com.corpacero.simulador.ui.theme.CorpBlueDeep
-import co.com.corpacero.simulador.ui.theme.CorpSlate100
+import co.com.corpacero.simulador.ui.theme.CorpBlueSoft
 import co.com.corpacero.simulador.ui.theme.CorpSlate200
 import co.com.corpacero.simulador.ui.theme.CorpSlate50
 import co.com.corpacero.simulador.ui.theme.CorpSlate500
@@ -93,7 +94,11 @@ private fun BrandHeader() {
                 modifier = Modifier
                     .size(64.dp)
                     .clip(RoundedCornerShape(12.dp))
-                    .background(Color.White),
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(Color.White, CorpBlueSoft),
+                        )
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Image(
@@ -183,7 +188,11 @@ private fun CalcCard(entry: CalcEntry, onClick: () -> Unit) {
                     .fillMaxWidth()
                     .height(96.dp)
                     .clip(RoundedCornerShape(8.dp))
-                    .background(CorpSlate100),
+                    .background(
+                        Brush.linearGradient(
+                            colors = listOf(CorpBlueSoft, Color.White),
+                        )
+                    ),
                 contentAlignment = Alignment.Center,
             ) {
                 Image(

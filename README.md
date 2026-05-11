@@ -1,17 +1,28 @@
 # Simulador Corpacero — Android
 
-Aplicación móvil Android que reproduce el comportamiento del archivo
+Aplicación móvil Android que iguala el archivo
 `Simulador_V3.xlsx` (Simulador de Pesos para Productos Transformados de
-Corpacero) como una experiencia nativa de calidad empresarial.
+Corpacero).
 
 ## Descarga
 
-Última versión publicada: **v1.0.3** (versionCode 4) — APK firmada release.
+Última versión publicada: **v1.0.4** (versionCode 5) — APK firmada release.
 
-[Descargar Simulador Corpacero v1.0.3 (APK)](https://github.com/jbarretoacero/CorpaceroSimulador/releases/download/v1.0.3/CorpaceroSimulador-1.0.3-release.apk)
+[Descargar Simulador Corpacero v1.0.4 (APK)](https://github.com/jbarretoacero/CorpaceroSimulador/releases/download/v1.0.4/CorpaceroSimulador-v1.0.4.apk)
 
 > En Android, abrir la APK descargada y permitir "Instalar de fuentes
 > desconocidas" para el navegador / gestor de archivos cuando lo solicite.
+
+> Nota: v1.0.4 fue firmada con un keystore nuevo. Si tienes v1.0.3
+> instalada, desinstálala antes de actualizar (Android rechaza
+> actualizaciones con firma distinta).
+
+### Novedades de v1.0.4
+
+- Nueva pantalla de splash con el logo completo de Corpacero sobre fondo blanco.
+- Icono de la app rediseñado: símbolo "C" centrado y a mayor escala.
+- Header del Home y tarjetas de calculadoras con gradiente suave para una
+  apariencia más uniforme (sin el borde visible entre el diagrama y el fondo).
 
 ## Stack
 
@@ -20,7 +31,7 @@ Corpacero) como una experiencia nativa de calidad empresarial.
 - `minSdk 24` (Android 7.0+) — `targetSdk 34`
 - Arquitectura simple **UI ↔ dominio**, con la lógica de negocio en
   `domain/calculators/Calculators.kt`.
-- Sin dependencias de red, sin base de datos. La app es 100% offline.
+- 100% offline.
 
 ## Calculadoras incluidas (1:1 con el Excel)
 
@@ -49,7 +60,9 @@ app/src/main/java/co/com/corpacero/simulador/
     ├── theme/                         ← Color, Type, Theme
     ├── navigation/                    ← Routes + NavGraph
     ├── components/                    ← Inputs, dropdowns, cards, scaffold
-    └── screens/                       ← Una pantalla por calculadora
+    └── screens/
+        ├── splash/                    ← Splash con logo completo
+        └── ...                        ← Una pantalla por calculadora
 ```
 ---
 **Disclaimer**: los valores son de referencia. No deben usarse para
