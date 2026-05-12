@@ -24,9 +24,9 @@ private const val STORAGE_KEY = "cub_arq"
 private const val DEFAULT_REC = "G90"
 
 private data class Inputs(
-    val espGalv: String = "0",
+    val espGalv: String = "",
     val recGalv: String = DEFAULT_REC,
-    val espPint: String = "0",
+    val espPint: String = "",
     val recPint: String = DEFAULT_REC,
 )
 
@@ -37,9 +37,9 @@ fun CubArqScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY)
         mutableStateOf(
             if (saved != null) Inputs(
-                espGalv = saved["espGalv"] ?: "0",
+                espGalv = saved["espGalv"] ?: "",
                 recGalv = saved["recGalv"] ?: DEFAULT_REC,
-                espPint = saved["espPint"] ?: "0",
+                espPint = saved["espPint"] ?: "",
                 recPint = saved["recPint"] ?: DEFAULT_REC,
             ) else Inputs()
         )

@@ -5,6 +5,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -280,44 +281,65 @@ fun DisclaimerBanner(text: String, modifier: Modifier = Modifier) {
     }
 }
 
-/* ----------------------------- Toolbar action chips ----------------------------- */
+/* ----------------------------- Toolbar action buttons ----------------------------- */
+/**
+ * Acción de barra superior con icono en cuadro redondeado arriba y etiqueta
+ * compacta debajo. Pensada para usarse sobre el header azul oscuro.
+ */
 @Composable
-private fun ToolbarChip(
+private fun ToolbarAction(
     label: String,
     icon: androidx.compose.ui.graphics.vector.ImageVector,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    AssistChip(
-        onClick = onClick,
-        label = { Text(label, fontWeight = FontWeight.Medium) },
-        leadingIcon = { Icon(icon, null, modifier = Modifier.size(16.dp)) },
-        modifier = modifier,
-        colors = AssistChipDefaults.assistChipColors(
-            containerColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.16f),
-            labelColor = androidx.compose.ui.graphics.Color.White,
-            leadingIconContentColor = androidx.compose.ui.graphics.Color.White,
-        ),
-        border = AssistChipDefaults.assistChipBorder(
-            enabled = true,
-            borderColor = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.32f),
-        ),
-    )
+    Column(
+        modifier = modifier
+            .clip(RoundedCornerShape(10.dp))
+            .clickable(onClick = onClick)
+            .padding(horizontal = 8.dp, vertical = 4.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Box(
+            modifier = Modifier
+                .size(34.dp)
+                .clip(RoundedCornerShape(8.dp))
+                .border(
+                    BorderStroke(1.dp, androidx.compose.ui.graphics.Color.White.copy(alpha = 0.45f)),
+                    RoundedCornerShape(8.dp),
+                ),
+            contentAlignment = Alignment.Center,
+        ) {
+            Icon(
+                icon,
+                contentDescription = label,
+                tint = androidx.compose.ui.graphics.Color.White,
+                modifier = Modifier.size(18.dp),
+            )
+        }
+        Spacer(Modifier.height(2.dp))
+        Text(
+            text = label,
+            color = androidx.compose.ui.graphics.Color.White,
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Medium,
+        )
+    }
 }
 
 @Composable
 fun ResetButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    ToolbarChip("Restablecer", Icons.Default.Refresh, onClick, modifier)
+    ToolbarAction("Restablecer", Icons.Default.Refresh, onClick, modifier)
 }
 
 @Composable
 fun SaveButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    ToolbarChip("Guardar", Icons.Default.Save, onClick, modifier)
+    ToolbarAction("Guardar", Icons.Default.Save, onClick, modifier)
 }
 
 @Composable
 fun ClearButton(onClick: () -> Unit, modifier: Modifier = Modifier) {
-    ToolbarChip("Limpiar", Icons.Default.DeleteOutline, onClick, modifier)
+    ToolbarAction("Limpiar", Icons.Default.DeleteOutline, onClick, modifier)
 }
 
 /* ----------------------------- Brand gradient header ----------------------------- */

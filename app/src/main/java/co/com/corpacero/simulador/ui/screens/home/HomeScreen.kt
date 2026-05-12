@@ -87,6 +87,7 @@ private fun BrandHeader() {
     Box(
         modifier = Modifier
             .fillMaxWidth()
+            .clip(RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp))
             .background(BrandGradient())
             .padding(horizontal = 24.dp, vertical = 28.dp),
     ) {

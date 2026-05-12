@@ -21,16 +21,16 @@ private const val STORAGE_KEY_RECT = "tuberia_rect"
 private const val STORAGE_KEY_CIRC = "tuberia_circ"
 
 private data class RectInputs(
-    val b: String = "0",
-    val h: String = "0",
-    val e: String = "0",
-    val l: String = "0",
+    val b: String = "",
+    val h: String = "",
+    val e: String = "",
+    val l: String = "",
 )
 
 private data class CircInputs(
-    val dext: String = "0",
-    val e: String = "0",
-    val l: String = "0",
+    val dext: String = "",
+    val e: String = "",
+    val l: String = "",
 )
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
@@ -42,10 +42,10 @@ fun TuberiaScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY_RECT)
         mutableStateOf(
             if (saved != null) RectInputs(
-                b = saved["b"] ?: "0",
-                h = saved["h"] ?: "0",
-                e = saved["e"] ?: "0",
-                l = saved["l"] ?: "0",
+                b = saved["b"] ?: "",
+                h = saved["h"] ?: "",
+                e = saved["e"] ?: "",
+                l = saved["l"] ?: "",
             ) else RectInputs()
         )
     }
@@ -53,9 +53,9 @@ fun TuberiaScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY_CIRC)
         mutableStateOf(
             if (saved != null) CircInputs(
-                dext = saved["dext"] ?: "0",
-                e = saved["e"] ?: "0",
-                l = saved["l"] ?: "0",
+                dext = saved["dext"] ?: "",
+                e = saved["e"] ?: "",
+                l = saved["l"] ?: "",
             ) else CircInputs()
         )
     }

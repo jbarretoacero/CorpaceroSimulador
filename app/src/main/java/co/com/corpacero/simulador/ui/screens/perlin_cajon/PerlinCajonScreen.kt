@@ -14,11 +14,11 @@ import co.com.corpacero.simulador.ui.components.*
 private const val STORAGE_KEY = "perlin_cajon"
 
 private data class Inputs(
-    val a: String = "0",
-    val b: String = "0",
-    val u: String = "0",
-    val e: String = "0",
-    val l: String = "0",
+    val a: String = "",
+    val b: String = "",
+    val u: String = "",
+    val e: String = "",
+    val l: String = "",
 )
 
 @Composable
@@ -28,11 +28,11 @@ fun PerlinCajonScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY)
         mutableStateOf(
             if (saved != null) Inputs(
-                a = saved["a"] ?: "0",
-                b = saved["b"] ?: "0",
-                u = saved["u"] ?: "0",
-                e = saved["e"] ?: "0",
-                l = saved["l"] ?: "0",
+                a = saved["a"] ?: "",
+                b = saved["b"] ?: "",
+                u = saved["u"] ?: "",
+                e = saved["e"] ?: "",
+                l = saved["l"] ?: "",
             ) else Inputs()
         )
     }

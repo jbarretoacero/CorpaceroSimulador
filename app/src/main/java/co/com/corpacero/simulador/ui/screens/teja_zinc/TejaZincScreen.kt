@@ -25,9 +25,9 @@ private const val DEFAULT_REC_GALV = "G90"
 private const val DEFAULT_REC_PINT = "G40"
 
 private data class Inputs(
-    val espGalv: String = "0",
+    val espGalv: String = "",
     val recGalv: String = DEFAULT_REC_GALV,
-    val espPint: String = "0",
+    val espPint: String = "",
     val recPint: String = DEFAULT_REC_PINT,
 )
 
@@ -38,9 +38,9 @@ fun TejaZincScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY)
         mutableStateOf(
             if (saved != null) Inputs(
-                espGalv = saved["espGalv"] ?: "0",
+                espGalv = saved["espGalv"] ?: "",
                 recGalv = saved["recGalv"] ?: DEFAULT_REC_GALV,
-                espPint = saved["espPint"] ?: "0",
+                espPint = saved["espPint"] ?: "",
                 recPint = saved["recPint"] ?: DEFAULT_REC_PINT,
             ) else Inputs()
         )

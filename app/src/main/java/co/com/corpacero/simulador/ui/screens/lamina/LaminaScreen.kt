@@ -15,9 +15,9 @@ private const val STORAGE_KEY = "lamina"
 private const val DEFAULT_REC = "G90"
 
 private data class Inputs(
-    val ancho: String = "0",
-    val largo: String = "0",
-    val espesor: String = "0",
+    val ancho: String = "",
+    val largo: String = "",
+    val espesor: String = "",
     val recubrimiento: String = DEFAULT_REC,
 )
 
@@ -28,9 +28,9 @@ fun LaminaScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY)
         mutableStateOf(
             if (saved != null) Inputs(
-                ancho = saved["ancho"] ?: "0",
-                largo = saved["largo"] ?: "0",
-                espesor = saved["espesor"] ?: "0",
+                ancho = saved["ancho"] ?: "",
+                largo = saved["largo"] ?: "",
+                espesor = saved["espesor"] ?: "",
                 recubrimiento = saved["recubrimiento"] ?: DEFAULT_REC,
             ) else Inputs()
         )

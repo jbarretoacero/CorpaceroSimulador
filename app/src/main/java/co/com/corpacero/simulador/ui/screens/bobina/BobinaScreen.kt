@@ -21,16 +21,16 @@ private const val STORAGE_KEY_WEIGHT = "bobina_weight"
 private const val STORAGE_KEY_LENGTH = "bobina_length"
 
 private data class WeightInputs(
-    val di: String = "0",
-    val de: String = "0",
-    val w:  String = "0",
-    val e:  String = "0",
+    val di: String = "",
+    val de: String = "",
+    val w:  String = "",
+    val e:  String = "",
 )
 
 private data class LengthInputs(
-    val w:  String = "0",
-    val e:  String = "0",
-    val we: String = "0",
+    val w:  String = "",
+    val e:  String = "",
+    val we: String = "",
 )
 
 @OptIn(androidx.compose.material3.ExperimentalMaterial3Api::class)
@@ -42,10 +42,10 @@ fun BobinaScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY_WEIGHT)
         mutableStateOf(
             if (saved != null) WeightInputs(
-                di = saved["di"] ?: "0",
-                de = saved["de"] ?: "0",
-                w  = saved["w"]  ?: "0",
-                e  = saved["e"]  ?: "0",
+                di = saved["di"] ?: "",
+                de = saved["de"] ?: "",
+                w  = saved["w"]  ?: "",
+                e  = saved["e"]  ?: "",
             ) else WeightInputs()
         )
     }
@@ -53,9 +53,9 @@ fun BobinaScreen(onBack: () -> Unit) {
         val saved = CalcStorage.load(context, STORAGE_KEY_LENGTH)
         mutableStateOf(
             if (saved != null) LengthInputs(
-                w  = saved["w"]  ?: "0",
-                e  = saved["e"]  ?: "0",
-                we = saved["we"] ?: "0",
+                w  = saved["w"]  ?: "",
+                e  = saved["e"]  ?: "",
+                we = saved["we"] ?: "",
             ) else LengthInputs()
         )
     }
