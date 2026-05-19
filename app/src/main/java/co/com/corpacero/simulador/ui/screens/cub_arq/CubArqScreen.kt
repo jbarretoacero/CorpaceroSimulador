@@ -16,6 +16,7 @@ import co.com.corpacero.simulador.ui.components.CalculatorScaffold
 import co.com.corpacero.simulador.ui.components.ClearButton
 import co.com.corpacero.simulador.ui.components.CubiertaVarianteCard
 import co.com.corpacero.simulador.ui.components.DiagramHero
+import co.com.corpacero.simulador.ui.components.DiagramOverlay
 import co.com.corpacero.simulador.ui.components.DisclaimerBanner
 import co.com.corpacero.simulador.ui.components.SaveButton
 import co.com.corpacero.simulador.ui.components.toPositiveDoubleOrNull
@@ -74,7 +75,16 @@ fun CubArqScreen(onBack: () -> Unit) {
             })
         },
     ) {
-        DiagramHero(R.drawable.diag_cub_arq, stringResource(R.string.calc_cub_arq), height = 160.dp)
+        val overlays = buildList {
+            if (inputs.espGalv.isNotBlank()) add(DiagramOverlay("Galv  e ${inputs.espGalv} mm", 0.02f, 0.02f))
+            if (inputs.espPint.isNotBlank()) add(DiagramOverlay("Pint  e ${inputs.espPint} mm", 0.02f, 0.14f))
+        }
+        DiagramHero(
+            R.drawable.diag_cub_arq,
+            stringResource(R.string.calc_cub_arq),
+            height = 160.dp,
+            overlays = overlays,
+        )
 
         CubiertaVarianteCard(
             titulo = "Galvanizada",

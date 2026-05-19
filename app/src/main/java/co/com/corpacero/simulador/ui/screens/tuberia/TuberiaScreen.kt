@@ -108,7 +108,13 @@ private fun RectContent(inputs: RectInputs, onChange: (RectInputs) -> Unit) {
     val pesoM   = if (ready) Calculators.tuberiaRectPesoKgM(b!!, h!!, e!!) else null
     val pesoUnd = if (ready) Calculators.tuberiaPesoKgUnd(pesoM!!, l!!) else null
 
-    DiagramHero(R.drawable.diag_tuberia_rect, "Diagrama tubería rectangular")
+    val overlays = buildList {
+        if (inputs.b.isNotBlank()) add(DiagramOverlay("B ${inputs.b} mm", 0.42f, 0.02f))
+        if (inputs.h.isNotBlank()) add(DiagramOverlay("H ${inputs.h} mm", 0.02f, 0.46f))
+        if (inputs.e.isNotBlank()) add(DiagramOverlay("e ${inputs.e} mm", 0.74f, 0.46f))
+        if (inputs.l.isNotBlank()) add(DiagramOverlay("L ${inputs.l} m",  0.40f, 0.92f))
+    }
+    DiagramHero(R.drawable.diag_tuberia_rect, "Diagrama tubería rectangular", overlays = overlays)
 
     SectionCard(stringResource(R.string.parameters)) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -138,7 +144,12 @@ private fun CircContent(inputs: CircInputs, onChange: (CircInputs) -> Unit) {
     val pesoM = if (ready) Calculators.tuberiaCircPesoKgM(dext!!, e!!) else null
     val pesoUnd = if (ready) Calculators.tuberiaPesoKgUnd(pesoM!!, l!!) else null
 
-    DiagramHero(R.drawable.diag_tuberia_circ, "Diagrama tubería circular")
+    val overlays = buildList {
+        if (inputs.dext.isNotBlank()) add(DiagramOverlay("Dext ${inputs.dext} mm", 0.36f, 0.06f))
+        if (inputs.e.isNotBlank())    add(DiagramOverlay("e ${inputs.e} mm",       0.70f, 0.46f))
+        if (inputs.l.isNotBlank())    add(DiagramOverlay("L ${inputs.l} m",        0.40f, 0.92f))
+    }
+    DiagramHero(R.drawable.diag_tuberia_circ, "Diagrama tubería circular", overlays = overlays)
 
     SectionCard(stringResource(R.string.parameters)) {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
