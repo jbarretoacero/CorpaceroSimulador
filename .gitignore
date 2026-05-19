@@ -10,6 +10,8 @@ captures/
 .cxx/
 *.apk
 *.aab
+# APKs publicados van versionados dentro de releases/ y SÍ se commitean
+!releases/*.apk
 *.keystore
 *.jks
 keystore.properties
