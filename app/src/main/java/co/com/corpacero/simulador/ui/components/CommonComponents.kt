@@ -6,7 +6,9 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
@@ -281,37 +283,48 @@ fun DiagramHero(
                 imgW = containerH * imageAspect
             }
 
-            Box(modifier = Modifier.size(width = imgW, height = imgH)) {
-                Image(
-                    painter = painter,
-                    contentDescription = contentDescription,
-                    modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Fit,
-                )
-                val fontSizeSp = (imgH.value * 0.07f).coerceIn(8f, 11f)
-                overlays.forEach { o ->
-                    Box(
+            Column(modifier = Modifier.fillMaxSize()) {
+                Box(modifier = Modifier
+                    .size(width = imgW, height = imgH)
+                    .align(Alignment.CenterHorizontally)
+                ) {
+                    Image(
+                        painter = painter,
+                        contentDescription = contentDescription,
+                        modifier = Modifier.fillMaxSize(),
+                        contentScale = ContentScale.Fit,
+                    )
+                }
+                if (overlays.isNotEmpty()) {
+                    val fontSizeSp = (imgH.value * 0.065f).coerceIn(7f, 9f)
+                    Row(
                         modifier = Modifier
-                            .align(Alignment.TopStart)
-                            .offset(
-                                x = imgW * o.xFraction,
-                                y = imgH * o.yFraction,
-                            )
-                            .clip(RoundedCornerShape(4.dp))
-                            .background(androidx.compose.ui.graphics.Color.White.copy(alpha = 0.92f))
-                            .border(
-                                BorderStroke(0.5.dp, CorpSlate200),
-                                RoundedCornerShape(4.dp),
-                            )
-                            .padding(horizontal = 4.dp, vertical = 1.dp),
+                            .fillMaxWidth()
+                            .padding(top = 6.dp)
+                            .horizontalScroll(rememberScrollState()),
+                        horizontalArrangement = Arrangement.spacedBy(6.dp),
                     ) {
-                        Text(
-                            text = o.text,
-                            fontSize = fontSizeSp.sp,
-                            color = CorpBlueDeep,
-                            fontWeight = FontWeight.SemiBold,
-                            maxLines = 1,
-                        )
+                        overlays.forEach { o ->
+                            Box(
+                                modifier = Modifier
+                                    .clip(RoundedCornerShape(4.dp))
+                                    .background(CorpBlue.copy(alpha = 0.08f))
+                                    .border(
+                                        BorderStroke(0.5.dp, CorpBlue.copy(alpha = 0.3f)),
+                                        RoundedCornerShape(4.dp),
+                                    )
+                                    .padding(horizontal = 5.dp, vertical = 2.dp),
+                            ) {
+                                Text(
+                                    text = o.text,
+                                    fontSize = fontSizeSp.sp,
+                                    color = CorpBlueDeep,
+                                    fontWeight = FontWeight.Medium,
+                                    maxLines = 1,
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(8.dp))
                     }
                 }
             }

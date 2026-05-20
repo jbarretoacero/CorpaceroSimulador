@@ -62,9 +62,9 @@ fun LaminaScreen(onBack: () -> Unit) {
         },
     ) {
         val overlays = buildList {
-            if (inputs.ancho.isNotBlank())   add(DiagramOverlay("A ${inputs.ancho} mm",   0.46f, 0.02f))
-            if (inputs.largo.isNotBlank())   add(DiagramOverlay("L ${inputs.largo} mm",   0.18f, 0.86f))
-            if (inputs.espesor.isNotBlank()) add(DiagramOverlay("e ${inputs.espesor} mm", 0.86f, 0.60f))
+            if (inputs.ancho.isNotBlank())   add(DiagramOverlay("A: ${inputs.ancho} mm", 0f, 0f))
+            if (inputs.largo.isNotBlank())   add(DiagramOverlay("L: ${inputs.largo} mm", 0f, 0f))
+            if (inputs.espesor.isNotBlank()) add(DiagramOverlay("e: ${inputs.espesor} mm", 0f, 0f))
         }
         DiagramHero(R.drawable.diag_lamina, "Diagrama lámina", overlays = overlays)
 

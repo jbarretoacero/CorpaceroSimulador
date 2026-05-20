@@ -94,16 +94,16 @@ fun BobinaScreen(onBack: () -> Unit) {
 
         val overlays = if (tab == 0) {
             buildList {
-                if (weight.di.isNotBlank()) add(DiagramOverlay("DI ${weight.di} mm", 0.58f, 0.40f))
-                if (weight.de.isNotBlank()) add(DiagramOverlay("DE ${weight.de} mm", 0.30f, 0.02f))
-                if (weight.w.isNotBlank())  add(DiagramOverlay("W ${weight.w} mm",   0.22f, 0.88f))
-                if (weight.e.isNotBlank())  add(DiagramOverlay("e ${weight.e} mm",   0.04f, 0.05f))
+                if (weight.di.isNotBlank()) add(DiagramOverlay("DI: ${weight.di} mm", 0f, 0f))
+                if (weight.de.isNotBlank()) add(DiagramOverlay("DE: ${weight.de} mm", 0f, 0f))
+                if (weight.w.isNotBlank())  add(DiagramOverlay("W: ${weight.w} mm",   0f, 0f))
+                if (weight.e.isNotBlank())  add(DiagramOverlay("e: ${weight.e} mm",   0f, 0f))
             }
         } else {
             buildList {
-                if (length.w.isNotBlank())  add(DiagramOverlay("W ${length.w} mm",  0.22f, 0.88f))
-                if (length.e.isNotBlank())  add(DiagramOverlay("e ${length.e} mm",  0.04f, 0.05f))
-                if (length.we.isNotBlank()) add(DiagramOverlay("WE ${length.we} kg", 0.58f, 0.40f))
+                if (length.w.isNotBlank())  add(DiagramOverlay("W: ${length.w} mm",  0f, 0f))
+                if (length.e.isNotBlank())  add(DiagramOverlay("e: ${length.e} mm",  0f, 0f))
+                if (length.we.isNotBlank()) add(DiagramOverlay("WE: ${length.we} kg", 0f, 0f))
             }
         }
         DiagramHero(R.drawable.diag_bobina, "Diagrama bobina", height = 200.dp, overlays = overlays)

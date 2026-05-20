@@ -109,10 +109,10 @@ private fun RectContent(inputs: RectInputs, onChange: (RectInputs) -> Unit) {
     val pesoUnd = if (ready) Calculators.tuberiaPesoKgUnd(pesoM!!, l!!) else null
 
     val overlays = buildList {
-        if (inputs.b.isNotBlank()) add(DiagramOverlay("B ${inputs.b} mm", 0.42f, 0.02f))
-        if (inputs.h.isNotBlank()) add(DiagramOverlay("H ${inputs.h} mm", 0.02f, 0.46f))
-        if (inputs.e.isNotBlank()) add(DiagramOverlay("e ${inputs.e} mm", 0.74f, 0.46f))
-        if (inputs.l.isNotBlank()) add(DiagramOverlay("L ${inputs.l} m",  0.40f, 0.92f))
+        if (inputs.b.isNotBlank()) add(DiagramOverlay("B: ${inputs.b} mm", 0f, 0f))
+        if (inputs.h.isNotBlank()) add(DiagramOverlay("H: ${inputs.h} mm", 0f, 0f))
+        if (inputs.e.isNotBlank()) add(DiagramOverlay("e: ${inputs.e} mm", 0f, 0f))
+        if (inputs.l.isNotBlank()) add(DiagramOverlay("L: ${inputs.l} m",  0f, 0f))
     }
     DiagramHero(R.drawable.diag_tuberia_rect, "Diagrama tubería rectangular", overlays = overlays)
 
@@ -145,9 +145,9 @@ private fun CircContent(inputs: CircInputs, onChange: (CircInputs) -> Unit) {
     val pesoUnd = if (ready) Calculators.tuberiaPesoKgUnd(pesoM!!, l!!) else null
 
     val overlays = buildList {
-        if (inputs.dext.isNotBlank()) add(DiagramOverlay("Dext ${inputs.dext} mm", 0.36f, 0.06f))
-        if (inputs.e.isNotBlank())    add(DiagramOverlay("e ${inputs.e} mm",       0.70f, 0.46f))
-        if (inputs.l.isNotBlank())    add(DiagramOverlay("L ${inputs.l} m",        0.40f, 0.92f))
+        if (inputs.dext.isNotBlank()) add(DiagramOverlay("Dext: ${inputs.dext} mm", 0f, 0f))
+        if (inputs.e.isNotBlank())    add(DiagramOverlay("e: ${inputs.e} mm",       0f, 0f))
+        if (inputs.l.isNotBlank())    add(DiagramOverlay("L: ${inputs.l} m",        0f, 0f))
     }
     DiagramHero(R.drawable.diag_tuberia_circ, "Diagrama tubería circular", overlays = overlays)
 

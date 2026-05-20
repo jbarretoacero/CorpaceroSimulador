@@ -66,8 +66,8 @@ fun CorpalosaScreen(onBack: () -> Unit) {
         },
     ) {
         val overlays = buildList {
-            if (espesor != null) add(DiagramOverlay("e ${espesor.fmt(2)} mm", 0.84f, 0.04f))
-            add(DiagramOverlay("Cal ${inputs.calibre}", 0.84f, 0.26f))
+            if (espesor != null) add(DiagramOverlay("e: ${espesor.fmt(2)} mm", 0f, 0f))
+            add(DiagramOverlay("Cal: ${inputs.calibre}", 0f, 0f))
         }
         DiagramHero(diag, "Diagrama corpalosa ${inputs.referencia}", height = 140.dp, overlays = overlays)
 

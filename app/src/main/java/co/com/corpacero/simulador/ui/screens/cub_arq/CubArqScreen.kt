@@ -76,8 +76,8 @@ fun CubArqScreen(onBack: () -> Unit) {
         },
     ) {
         val overlays = buildList {
-            if (inputs.espGalv.isNotBlank()) add(DiagramOverlay("Galv  e ${inputs.espGalv} mm", 0.02f, 0.02f))
-            if (inputs.espPint.isNotBlank()) add(DiagramOverlay("Pint  e ${inputs.espPint} mm", 0.02f, 0.14f))
+            if (inputs.espGalv.isNotBlank()) add(DiagramOverlay("Galv e: ${inputs.espGalv} mm", 0f, 0f))
+            if (inputs.espPint.isNotBlank()) add(DiagramOverlay("Pint e: ${inputs.espPint} mm", 0f, 0f))
         }
         DiagramHero(
             R.drawable.diag_cub_arq,

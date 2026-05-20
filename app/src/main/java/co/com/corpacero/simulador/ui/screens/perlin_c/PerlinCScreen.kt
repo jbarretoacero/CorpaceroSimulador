@@ -71,11 +71,11 @@ fun PerlinCScreen(onBack: () -> Unit) {
         },
     ) {
         val overlays = buildList {
-            if (inputs.a.isNotBlank()) add(DiagramOverlay("A ${inputs.a} mm", 0.02f, 0.46f))
-            if (inputs.b.isNotBlank()) add(DiagramOverlay("B ${inputs.b} mm", 0.38f, 0.02f))
-            if (inputs.u.isNotBlank()) add(DiagramOverlay("U ${inputs.u} mm", 0.68f, 0.16f))
-            if (inputs.e.isNotBlank()) add(DiagramOverlay("e ${inputs.e} mm", 0.38f, 0.46f))
-            if (inputs.l.isNotBlank()) add(DiagramOverlay("L ${inputs.l} m",  0.62f, 0.92f))
+            if (inputs.a.isNotBlank()) add(DiagramOverlay("A: ${inputs.a} mm", 0f, 0f))
+            if (inputs.b.isNotBlank()) add(DiagramOverlay("B: ${inputs.b} mm", 0f, 0f))
+            if (inputs.u.isNotBlank()) add(DiagramOverlay("U: ${inputs.u} mm", 0f, 0f))
+            if (inputs.e.isNotBlank()) add(DiagramOverlay("e: ${inputs.e} mm", 0f, 0f))
+            if (inputs.l.isNotBlank()) add(DiagramOverlay("L: ${inputs.l} m",  0f, 0f))
         }
         DiagramHero(R.drawable.diag_perlin_c, "Diagrama Perlín C", overlays = overlays)
 

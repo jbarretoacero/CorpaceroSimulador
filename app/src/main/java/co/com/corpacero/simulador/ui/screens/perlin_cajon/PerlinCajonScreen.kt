@@ -65,11 +65,11 @@ fun PerlinCajonScreen(onBack: () -> Unit) {
         },
     ) {
         val overlays = buildList {
-            if (inputs.a.isNotBlank()) add(DiagramOverlay("A ${inputs.a} mm", 0.02f, 0.46f))
-            if (inputs.b.isNotBlank()) add(DiagramOverlay("B ${inputs.b} mm", 0.22f, 0.10f))
-            if (inputs.u.isNotBlank()) add(DiagramOverlay("C ${inputs.u} mm", 0.66f, 0.22f))
-            if (inputs.e.isNotBlank()) add(DiagramOverlay("e ${inputs.e} mm", 0.20f, 0.50f))
-            if (inputs.l.isNotBlank()) add(DiagramOverlay("L ${inputs.l} m",  0.62f, 0.92f))
+            if (inputs.a.isNotBlank()) add(DiagramOverlay("A: ${inputs.a} mm", 0f, 0f))
+            if (inputs.b.isNotBlank()) add(DiagramOverlay("B: ${inputs.b} mm", 0f, 0f))
+            if (inputs.u.isNotBlank()) add(DiagramOverlay("C: ${inputs.u} mm", 0f, 0f))
+            if (inputs.e.isNotBlank()) add(DiagramOverlay("e: ${inputs.e} mm", 0f, 0f))
+            if (inputs.l.isNotBlank()) add(DiagramOverlay("L: ${inputs.l} m",  0f, 0f))
         }
         DiagramHero(R.drawable.diag_perlin_cajon, "Diagrama Perlín cajón", overlays = overlays)
 
