@@ -61,12 +61,7 @@ fun LaminaScreen(onBack: () -> Unit) {
             })
         },
     ) {
-        val overlays = buildList {
-            if (inputs.ancho.isNotBlank())   add(DiagramOverlay("A: ${inputs.ancho} mm", 0f, 0f))
-            if (inputs.largo.isNotBlank())   add(DiagramOverlay("L: ${inputs.largo} mm", 0f, 0f))
-            if (inputs.espesor.isNotBlank()) add(DiagramOverlay("e: ${inputs.espesor} mm", 0f, 0f))
-        }
-        DiagramHero(R.drawable.diag_lamina, "Diagrama lámina", overlays = overlays)
+        DiagramHero(R.drawable.diag_lamina, "Diagrama lámina")
 
         SectionCard(stringResource(R.string.parameters)) {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {

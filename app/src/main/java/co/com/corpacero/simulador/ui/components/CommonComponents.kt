@@ -6,11 +6,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.outlined.Info
@@ -230,31 +227,13 @@ fun ResultRow(
 }
 
 /* ------------------------------ Diagram hero ----------------------------- */
-/**
- * Etiqueta superpuesta sobre el diagrama. Las coordenadas se expresan como
- * fracciones (0..1) del rectángulo real de la imagen (no de la tarjeta), de
- * modo que el texto se mantiene en su sitio aunque la imagen se reescale o
- * tenga letterbox.
- */
-data class DiagramOverlay(
-    val text: String,
-    val xFraction: Float,
-    val yFraction: Float,
-)
-
 @Composable
 fun DiagramHero(
     @DrawableRes drawable: Int,
     contentDescription: String,
     modifier: Modifier = Modifier,
     height: androidx.compose.ui.unit.Dp = 180.dp,
-    overlays: List<DiagramOverlay> = emptyList(),
 ) {
-    val painter = painterResource(drawable)
-    val intrinsic = painter.intrinsicSize
-    val imageAspect = if (intrinsic.width > 0f && intrinsic.height > 0f)
-        intrinsic.width / intrinsic.height else 1f
-
     Box(
         modifier
             .fillMaxWidth()
@@ -264,71 +243,14 @@ fun DiagramHero(
             .border(BorderStroke(1.dp, CorpSlate200), RoundedCornerShape(14.dp)),
         contentAlignment = Alignment.Center,
     ) {
-        BoxWithConstraints(
+        Image(
+            painter = painterResource(drawable),
+            contentDescription = contentDescription,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(20.dp),
-            contentAlignment = Alignment.Center,
-        ) {
-            val containerW = maxWidth
-            val containerH = maxHeight
-            val containerAspect = if (containerH.value > 0f) containerW.value / containerH.value else 1f
-            val imgW: androidx.compose.ui.unit.Dp
-            val imgH: androidx.compose.ui.unit.Dp
-            if (imageAspect >= containerAspect) {
-                imgW = containerW
-                imgH = containerW / imageAspect
-            } else {
-                imgH = containerH
-                imgW = containerH * imageAspect
-            }
-
-            Column(modifier = Modifier.fillMaxSize()) {
-                Box(modifier = Modifier
-                    .size(width = imgW, height = imgH)
-                    .align(Alignment.CenterHorizontally)
-                ) {
-                    Image(
-                        painter = painter,
-                        contentDescription = contentDescription,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Fit,
-                    )
-                }
-                if (overlays.isNotEmpty()) {
-                    val fontSizeSp = (imgH.value * 0.065f).coerceIn(7f, 9f)
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(top = 6.dp)
-                            .horizontalScroll(rememberScrollState()),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                    ) {
-                        overlays.forEach { o ->
-                            Box(
-                                modifier = Modifier
-                                    .clip(RoundedCornerShape(4.dp))
-                                    .background(CorpBlue.copy(alpha = 0.08f))
-                                    .border(
-                                        BorderStroke(0.5.dp, CorpBlue.copy(alpha = 0.3f)),
-                                        RoundedCornerShape(4.dp),
-                                    )
-                                    .padding(horizontal = 5.dp, vertical = 2.dp),
-                            ) {
-                                Text(
-                                    text = o.text,
-                                    fontSize = fontSizeSp.sp,
-                                    color = CorpBlueDeep,
-                                    fontWeight = FontWeight.Medium,
-                                    maxLines = 1,
-                                )
-                            }
-                        }
-                        Spacer(modifier = Modifier.width(8.dp))
-                    }
-                }
-            }
-        }
+            contentScale = ContentScale.Fit,
+        )
     }
 }
 
