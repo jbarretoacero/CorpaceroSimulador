@@ -1,10 +1,8 @@
 <resources>
-    <!-- Brand Corpacero (extraídos del logo oficial del archivo Excel) -->
-    <color name="corp_blue">#003CA4</color>
-    <color name="corp_blue_dark">#00257A</color>
+    <!-- Brand Corpacero — Pantone 2145 C (manual de imagen oficial) -->
+    <color name="corp_blue">#003AA9</color>
+    <color name="corp_blue_dark">#002B7F</color>
     <color name="corp_blue_deep">#001A55</color>
-    <color name="corp_cyan">#00B4FF</color>
-    <color name="corp_violet">#6978FF</color>
     <color name="corp_blue_soft">#E6EEFA</color>
     <color name="corp_grey_bg">#F5F7FB</color>
     <color name="corp_grey_card">#FFFFFF</color>

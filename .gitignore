@@ -16,3 +16,6 @@ captures/
 *.jks
 keystore.properties
 .kotlin/
+# Carpeta de assets fuente (logos originales del manual de marca).
+# Los assets exportados ya viven en app/src/main/res — esta carpeta no se versiona.
+images/

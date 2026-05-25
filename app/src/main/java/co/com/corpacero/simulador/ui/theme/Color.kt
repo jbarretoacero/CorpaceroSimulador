@@ -2,17 +2,14 @@ package co.com.corpacero.simulador.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-// Paleta corporativa Corpacero — refinada para uso institucional.
-// La identidad oficial está construida sobre el azul; el cyan se reserva como
-// acento de datos. El violeta del logo histórico se mantiene como variable
-// para compatibilidad pero no se usa en la UI.
-val CorpBlue        = Color(0xFF003CA4) // Azul institucional (primary)
-val CorpBlueDark    = Color(0xFF00257A) // Hover / barra superior
+// Paleta corporativa Corpacero — alineada al Manual de Imagen oficial.
+// Color institucional: Pantone 2145 C / HEX #003AA9 (R:0 G:58 B:169).
+// El manual exige azul sólido sin gradientes ni acentos cyan/violeta.
+val CorpBlue        = Color(0xFF003AA9) // Azul institucional (Pantone 2145 C)
+val CorpBlueDark    = Color(0xFF002B7F) // Variante para statusbar / hover
 val CorpBlueDeep    = Color(0xFF001A55) // Texto sobre claro / headlines
-val CorpBlueSoft    = Color(0xFFEAF0FA) // Fondos suaves de tarjetas de resultado
-val CorpBlueAccent  = Color(0xFF1F5FD0) // Acento de barras y bordes activos
-val CorpCyan        = Color(0xFF0098D7) // Acento de datos (sin saturación excesiva)
-val CorpViolet      = Color(0xFF6978FF) // Legacy — no usar en nuevas vistas
+val CorpBlueSoft    = Color(0xFFE6EEFA) // Fondos suaves de tarjetas de resultado
+val CorpBlueAccent  = Color(0xFF003AA9) // Acento = mismo institucional (sin desviaciones)
 
 // Neutrales corporativos (familia slate / steel)
 val CorpSlate900    = Color(0xFF111827) // Texto principal de alta jerarquía

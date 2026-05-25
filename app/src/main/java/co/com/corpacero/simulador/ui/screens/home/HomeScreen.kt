@@ -16,7 +16,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -29,7 +28,6 @@ import co.com.corpacero.simulador.ui.components.DisclaimerBanner
 import co.com.corpacero.simulador.ui.navigation.Routes
 import co.com.corpacero.simulador.ui.theme.CorpBlueAccent
 import co.com.corpacero.simulador.ui.theme.CorpBlueDeep
-import co.com.corpacero.simulador.ui.theme.CorpBlueSoft
 import co.com.corpacero.simulador.ui.theme.CorpSlate100
 import co.com.corpacero.simulador.ui.theme.CorpSlate200
 import co.com.corpacero.simulador.ui.theme.CorpSlate50
@@ -84,48 +82,40 @@ fun HomeScreen(onSelect: (Routes) -> Unit) {
 
 @Composable
 private fun BrandHeader() {
-    Box(
+    // Header con fondo azul institucional (BrandGradient sólido sobre la marca).
+    // El logo Corpacero (azul) se presenta dentro de un contenedor blanco para
+    // garantizar contraste estricto, según el Manual de Imagen.
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp))
             .background(BrandGradient())
-            .padding(horizontal = 24.dp, vertical = 28.dp),
+            .padding(horizontal = 24.dp, vertical = 24.dp),
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Box(
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(14.dp))
+                .background(Color.White)
+                .padding(horizontal = 20.dp, vertical = 16.dp),
+            contentAlignment = Alignment.CenterStart,
+        ) {
+            Image(
+                painter = painterResource(R.drawable.logo_corpacero),
+                contentDescription = "Corpacero — aliados de acero",
                 modifier = Modifier
-                    .size(64.dp)
-                    .clip(RoundedCornerShape(12.dp))
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(Color.White, CorpBlueSoft),
-                        )
-                    ),
-                contentAlignment = Alignment.Center,
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.logo_corpacero),
-                    contentDescription = "Corpacero",
-                    modifier = Modifier.padding(8.dp),
-                    contentScale = ContentScale.Fit,
-                )
-            }
-            Spacer(Modifier.width(18.dp))
-            Column {
-                Text(
-                    text = stringResource(R.string.app_name),
-                    color = Color.White,
-                    style = MaterialTheme.typography.headlineMedium,
-                    fontWeight = FontWeight.SemiBold,
-                )
-                Spacer(Modifier.height(2.dp))
-                Text(
-                    text = stringResource(R.string.app_subtitle).uppercase(),
-                    color = Color.White.copy(alpha = 0.78f),
-                    style = MaterialTheme.typography.labelSmall,
-                )
-            }
+                    .fillMaxWidth(0.78f)
+                    .heightIn(min = 56.dp, max = 88.dp),
+                contentScale = ContentScale.Fit,
+            )
         }
+        Spacer(Modifier.height(14.dp))
+        Text(
+            text = stringResource(R.string.app_subtitle).uppercase(),
+            color = Color.White.copy(alpha = 0.85f),
+            style = MaterialTheme.typography.labelSmall,
+            fontWeight = FontWeight.Medium,
+        )
     }
 }
 
