@@ -23,8 +23,8 @@ android {
         applicationId = "co.com.corpacero.simulador"
         minSdk = 24
         targetSdk = 34
-        versionCode = 11
-        versionName = "1.3.3"
+        versionCode = 12
+        versionName = "1.3.4"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }

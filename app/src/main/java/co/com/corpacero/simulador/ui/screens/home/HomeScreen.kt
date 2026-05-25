@@ -82,40 +82,49 @@ fun HomeScreen(onSelect: (Routes) -> Unit) {
 
 @Composable
 private fun BrandHeader() {
-    // Header con fondo azul institucional (BrandGradient sólido sobre la marca).
-    // El logo Corpacero (azul) se presenta dentro de un contenedor blanco para
-    // garantizar contraste estricto, según el Manual de Imagen.
-    Column(
+    // Header compacto: isotipo (sobre fondo blanco para contraste estricto)
+    // + nombre de la app a la derecha. Alineado a la guía del Manual de Imagen
+    // (logo sólido, sin contaminar el azul institucional).
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .fillMaxWidth()
-            .clip(RoundedCornerShape(bottomStart = 28.dp, bottomEnd = 28.dp))
+            .clip(RoundedCornerShape(bottomStart = 24.dp, bottomEnd = 24.dp))
             .background(BrandGradient())
-            .padding(horizontal = 24.dp, vertical = 24.dp),
+            .padding(horizontal = 18.dp, vertical = 16.dp),
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .clip(RoundedCornerShape(14.dp))
-                .background(Color.White)
-                .padding(horizontal = 20.dp, vertical = 16.dp),
-            contentAlignment = Alignment.CenterStart,
+                .size(46.dp)
+                .clip(RoundedCornerShape(10.dp))
+                .background(Color.White),
+            contentAlignment = Alignment.Center,
         ) {
             Image(
-                painter = painterResource(R.drawable.logo_corpacero),
-                contentDescription = "Corpacero — aliados de acero",
+                painter = painterResource(R.drawable.isotipo_corpacero),
+                contentDescription = "Corpacero",
                 modifier = Modifier
-                    .fillMaxWidth(0.78f)
-                    .heightIn(min = 56.dp, max = 88.dp),
+                    .fillMaxSize()
+                    .padding(7.dp),
                 contentScale = ContentScale.Fit,
             )
         }
-        Spacer(Modifier.height(14.dp))
-        Text(
-            text = stringResource(R.string.app_subtitle).uppercase(),
-            color = Color.White.copy(alpha = 0.85f),
-            style = MaterialTheme.typography.labelSmall,
-            fontWeight = FontWeight.Medium,
-        )
+        Spacer(Modifier.width(14.dp))
+        Column(modifier = Modifier.weight(1f)) {
+            Text(
+                text = stringResource(R.string.app_name),
+                color = Color.White,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+            )
+            Text(
+                text = stringResource(R.string.app_subtitle),
+                color = Color.White.copy(alpha = 0.78f),
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.Normal,
+                maxLines = 2,
+            )
+        }
     }
 }
 
